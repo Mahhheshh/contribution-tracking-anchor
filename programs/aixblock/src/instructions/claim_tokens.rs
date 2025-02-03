@@ -61,7 +61,6 @@ impl<'info> ClaimTokens<'info> {
         let contribution = &mut self.contributor;
         let now = Clock::get()?.unix_timestamp;
 
-        msg!("Claim");
         require!(
             now >= contribution.claim_after && contribution.claim_after <= self.state.unlock_after,
             ErrorCode::EarlyTokenClaim
@@ -93,11 +92,11 @@ impl<'info> ClaimTokens<'info> {
             .checked_div(self.state.global_contribution_points)
             .unwrap();
 
-        contribution.claim_after = (self.state.unlock_after - now)
+        contribution.claim_after = self.state.unlock_after
             .checked_add(TOKEN_CLAIM_AFTER as i64)
             .unwrap();
 
-            contribution.accumulated_points = 0;
+        contribution.accumulated_points = 0;
 
         transfer_checked(cpi_context, claimable_tokens, self.token_pool_mint.decimals)?;
         Ok(())
