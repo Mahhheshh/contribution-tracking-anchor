@@ -32,17 +32,17 @@ pub mod aixblock {
         Ok(())
     }
 
-    pub fn create_contributor_account(ctx: Context<InitializeContributor>, gh_username: String) -> Result<()> {
+    pub fn create_contributor_account(ctx: Context<InitializeContributor>, _gh_username: String) -> Result<()> {
         ctx.accounts.create_contributor_account(&ctx.bumps)?;
         Ok(())
     }
 
-    pub fn log_contributor_points(ctx: Context<LogContribution>, gh_username: String, points: u64) -> Result<()> {
+    pub fn log_contributor_points(ctx: Context<LogContribution>, _gh_username: String, points: u64) -> Result<()> {
         ctx.accounts.log_contributor_points(points)?;
         Ok(())
     }
 
-    pub fn claim_contributor_tokens(ctx: Context<ClaimTokens>, gh_username: String) -> Result<()> {
+    pub fn claim_contributor_tokens(ctx: Context<ClaimTokens>, _gh_username: String) -> Result<()> {
         ctx.accounts.claim_contributor_tokens()?;
         Ok(())
     }
