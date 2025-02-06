@@ -49,7 +49,7 @@ describe("aixblock", () => {
   let contributorPDA2: anchor.web3.PublicKey;
 
   let tokenPoolAccount: anchor.web3.PublicKey;
-  let ecosystemFundAccount: anchor.web3.PublicKey;
+  let communityReserveAccount: anchor.web3.PublicKey;
 
   let contributorOneATA: Account;
   let contributorTwoATA: Account;
@@ -136,11 +136,11 @@ describe("aixblock", () => {
     );
     console.log(`[Setup] Token Pool Account PDA: ${tokenPoolAccount}`);
 
-    [ecosystemFundAccount] = web3.PublicKey.findProgramAddressSync(
+    [communityReserveAccount] = web3.PublicKey.findProgramAddressSync(
       [Buffer.from("ecosystem_reserve")],
       program.programId
     );
-    console.log(`[Setup] Ecosystem Fund PDA: ${ecosystemFundAccount}`);
+    console.log(`[Setup] Ecosystem Fund PDA: ${communityReserveAccount}`);
 
     // Create Associated Token Accounts for contributors
     contributorOneATA = getAssociatedTokenAddressSync(
@@ -186,7 +186,7 @@ describe("aixblock", () => {
       "Token Pool Account should be default"
     );
     assert.ok(
-      stateAccount.ecosystemReserveAccount.equals(ecosystemFundAccount),
+      stateAccount.communityReserveAccount.equals(communityReserveAccount),
       "Ecosystem fund address does not match"
     );
     assert.ok(
