@@ -3,7 +3,7 @@ pub const ANCHOR_DISCRIMINATOR: u8 = 8;
 pub const SEED_MINT_ACCOUNT: &[u8] = b"mint";
 pub const MINT_DECIMALS: u8 = 6;
 
-pub const MONTHLY_UNLOCK_SUPPLY: u32 = 10_000;
+pub const MONTHLY_UNLOCK_SUPPLY: u16 = 10_000;
 
 pub const FAIRNESS_THRESHOLD_POINTS: u16 = 500;
 
