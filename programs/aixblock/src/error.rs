@@ -9,5 +9,9 @@ pub enum ErrorCode {
     #[msg("Early Reset: Cannot perform reset operation before the required time period")]
     EarlyReset,
     #[msg("Early Token Unlock!")]
-    EarlyUnlock
+    EarlyUnlock,
+    #[msg("Invalid Admin Address")]
+    InvalidAdmin,
+    #[msg("Insufficient Funds in Token Pool")]
+    InsufficientTokenPoolFunds
 }
