@@ -4,7 +4,7 @@ use anchor_spl::{
     token_interface::{Mint, TokenAccount, TokenInterface},
 };
 
-use crate::{Contribution, State, ANCHOR_DISCRIMINATOR, CLAIM_WINDOW_SECONDS};
+use crate::{Contribution, State, CLAIM_WINDOW_SECONDS};
 
 #[derive(Accounts)]
 #[instruction(gh_username: String)]
@@ -25,7 +25,7 @@ pub struct InitializeContributor<'info> {
         init,
         payer = signer,
         seeds = [b"contributor", gh_username.as_bytes()],
-        space = ANCHOR_DISCRIMINATOR as usize + Contribution::INIT_SPACE,
+        space = Contribution::INIT_SPACE,
         bump
     )]
     pub contributor: Account<'info, Contribution>,
