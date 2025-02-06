@@ -8,7 +8,7 @@ use anchor_spl::{
 use crate::{
     error::ErrorCode,
     state::{Contribution, State},
-    FAIRNESS_THRESHOLD, MONTHLY_UNLOCK_SUPPLY, TOKEN_CLAIM_AFTER,
+    FAIRNESS_THRESHOLD_POINTS, MONTHLY_UNLOCK_SUPPLY, TOKEN_CLAIM_AFTER_SECONDS,
 };
 
 #[derive(Accounts)]
@@ -81,7 +81,7 @@ impl<'info> ClaimTokens<'info> {
             CpiContext::new_with_signer(cpi_program, transfer_cpi_accounts, signer_seeds);
 
         let tokens_to_distribute =
-            match self.state.global_contribution_points > FAIRNESS_THRESHOLD as u64 {
+            match self.state.global_contribution_points > FAIRNESS_THRESHOLD_POINTS as u64 {
                 true => MONTHLY_UNLOCK_SUPPLY as u64,
                 false => MONTHLY_UNLOCK_SUPPLY as u64 / 2,
             };
@@ -92,8 +92,10 @@ impl<'info> ClaimTokens<'info> {
             .checked_div(self.state.global_contribution_points)
             .unwrap();
 
-        contribution.claim_after = self.state.unlock_after
-            .checked_add(TOKEN_CLAIM_AFTER as i64)
+        contribution.claim_after = self
+            .state
+            .unlock_after
+            .checked_add(TOKEN_CLAIM_AFTER_SECONDS as i64)
             .unwrap();
 
         contribution.accumulated_points = 0;

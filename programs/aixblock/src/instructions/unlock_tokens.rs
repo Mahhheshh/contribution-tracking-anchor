@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{mint_to, Mint, MintTo, TokenAccount, TokenInterface};
 
-use crate::{error::ErrorCode, State, MONTHLY_UNLOCK_SUPPLY, TOKEN_UNLOCK_AFTER};
+use crate::{error::ErrorCode, State, MONTHLY_UNLOCK_SUPPLY, TOKEN_UNLOCK_AFTER_SECONDS};
 
 #[derive(Accounts)]
 pub struct Unlock<'info> {
@@ -57,7 +57,7 @@ impl<'info> Unlock<'info> {
             ),
             MONTHLY_UNLOCK_SUPPLY as u64,
         )?;
-        state.unlock_after = now + TOKEN_UNLOCK_AFTER as i64;
+        state.unlock_after = now + TOKEN_UNLOCK_AFTER_SECONDS as i64;
 
         Ok(())
     }

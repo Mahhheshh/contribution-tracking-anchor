@@ -4,7 +4,7 @@ use anchor_spl::{
     token_interface::{Mint, TokenAccount, TokenInterface},
 };
 
-use crate::{Contribution, State, ANCHOR_DISCRIMINATOR, CLAIM_WINDOW};
+use crate::{Contribution, State, ANCHOR_DISCRIMINATOR, CLAIM_WINDOW_SECONDS};
 
 #[derive(Accounts)]
 #[instruction(gh_username: String)]
@@ -50,7 +50,7 @@ impl<'info> InitializeContributor<'info> {
 
             token_pool_account: self.contributor_pool_account.key(),
             accumulated_points: 0,
-            claim_after: self.state.unlock_after - CLAIM_WINDOW as i64,            
+            claim_after: self.state.unlock_after - CLAIM_WINDOW_SECONDS as i64,            
             bump: bumps.contributor,
         });
 
